@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+<style>
+    * {
+        margin: 0; /*让元素之间没有缝隙*/
+        padding: 0;
+        list-style: none;
+    }
+
+    .menu {
+        width: 200px;; /*设置宽度*/
+        margin-top: 185px;
+        position: absolute;
+    }
+    .head {
+        height: 70px;;
+        width: 600px;
+        margin: 0 auto; /*向两边无线延伸*/
+
+    }
+
+    .menu li {
+        margin-top: 2px;
+        width: 98px;
+        height: 60px;
+        line-height: 50px;
+        background-color: #F3DEC6;
+        text-align: center;
+        display: block; /*变成行内的块级元素 具体参考:http://stackoverflow.com/questions/9189810/css-display-inline-vs-inline-block*/
+    }
+
+
+    /*鼠标移动上去 颜色变亮*/
+    #menu [class*="active"] {
+        background-color: #FF9800;
+        cursor: pointer;
+    }
+    #picContent{
+        float: left;
+        position: relative;
+        width: 400px;
+        height: 250px;
+        margin-left: 49px;
+    }
+    #pic li{
+        margin-top: 46%;
+        position: absolute;
+        width: 4px;
+        height: 250px;
+        padding-left: 50px;
+        display: none;
+
+    }
+    .piclist{
+        margin-left: 50px;
+    }
+
+    .piclist li{
+        left: 30px;
+        margin-top: 120px;
+        margin-left: 1px;
+        display: inline;
+        float: left;
+        padding: 21px;
+        background-color: #b9d8ff;
+    }
+
+    #pic [class*="active"] {
+        display: block;
+    }
+    #PicText [class*="active"]{
+        background-color: #FF9800;
+        cursor: pointer;
+    }
+
+
+</style>
+<div class="head">
+    <ul class="menu" id="menu">
+        <li class="active">Tab1</li>
+        <li>Tab2</li>
+        <li>Tab3</li>
+        <li>Tab4</li>
+    </ul>
+    <div id="picContent">
+        <ul id="pic">
+            <li class="active"><img src="1.png" /></li>
+            <li><img src="2.png" /></li>
+            <li><img src="3.png" /></li>
+            <li><img src="4.png" /></li>
+
+        </ul>
+        <ul class="piclist" id="PicText">
+            <li class="active">图片1</li>
+            <li>图片2</li>
+            <li>图片3</li>
+            <li>图片4</li>
+        </ul>
+
+    </div>
+</div>
+</body>
+<script>
+    function changePic(){
+        var piclist=$("#pic li"),//图片列表
+        picText=$("#PicText li"),//图片文字描述
+        tab=$("#menu li"),//tab 选项卡
+        index=0;//图片的索引
+        flag=false,
+        repeat=1;
+
+        var changeTime=setInterval(function(){
+            var num=index++;
+            if(num<4){
+                change(piclist,picText,tab,num,flag,repeat);
+                flag=false;
+            }else{
+                flag=true;
+                repeat++
+                index=0;
+            }
+
+        },1000)
+
+    }
+    function change(picList,piCText,tab,index,flag,repeat){
+            if(index){
+                picList[index-1].className="";
+                piCText[index-1].className=""
+            } else if(index==0){
+                picList[index+3].className="";
+                piCText[index+3].className="";
+            }
+            picList[index].className="active";
+            piCText[index].className="active";
+            if(flag){
+                if(repeat%2==0){
+                    tab[0].className="";
+                    tab[1].className="active";
+                    console.log("change");
+                }else{
+                    tab[1].className="";
+                    tab[0].className="active";
+                }
+            }
+
+    }
+    changePic();
+
+
+</script>
+
+</html>
