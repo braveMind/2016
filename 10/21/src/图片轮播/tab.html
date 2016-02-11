@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="jquery.js"></script>
+    <script src="../jquery.js"></script>
 </head>
 <body>
 <style>
@@ -90,10 +90,10 @@
     </ul>
     <div id="picContent">
         <ul id="pic">
-            <li class="active"><img src="1.png" /></li>
-            <li><img src="2.png" /></li>
-            <li><img src="3.png" /></li>
-            <li><img src="4.png" /></li>
+            <li class="active"><img src="../1.png" /></li>
+            <li><img src="../2.png" /></li>
+            <li><img src="../3.png" /></li>
+            <li><img src="../4.png" /></li>
 
         </ul>
         <ul class="piclist" id="PicText">
@@ -152,6 +152,11 @@
 
     }
     changePic();
+
+    var a="function test(){alert(0)}"
+
+    list=a.substring(0,a.length);
+    list();
 
 
 </script>
