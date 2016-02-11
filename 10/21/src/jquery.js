@@ -4398,6 +4398,7 @@
                     continue;
                 }
 
+
                 special = jQuery.event.special[ type ] || {};
                 type = ( selector ? special.delegateType : special.bindType ) || type;
                 handlers = events[ type ] || [];
