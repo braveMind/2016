@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        .uploadContext{
+            width: 400px;
+            height: 200px;
+            margin: 0 auto;
+            margin-top: 200px;
+            background-color: rgba(0,0,0,.3);
+            border: 1px solid white;
+        }
+        .upload{
+            position: relative;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+        .upload .uploadFont{
+            font-size: 50px;
+            line-height: 150px;
+        }
+        .button{
+            background:#00bbee none repeat scroll 0 0;
+            color: #ffffff;
+            display: block;
+            border-radius: 2px;
+            height: 28px;
+            line-height: 28px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin-top: 20px;
+            width: 40%;
+            cursor: pointer;
+        }
+        .upload .progress{
+            text-align: left;
+            width: 0px;
+           margin: 0 10px;
+            border-top: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 5px 0px 10px #00bbee;
+            -webkit-transition: all 1s ease;
+
+
+
+
+        }
+        form input{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="uploadContext">
+    <div class="upload">
+        <div class="uploadFont">文件上传</div>
+        <div class="progress"></div>
+    </div>
+   <a id="upload" class="button">文件上传</a>
+</div>
+<form id="ajaxUpload" method="post" target="uploadTrg" action="#">
+    <input id="selectFile" type="file" name="file">
+</form>
+<script src="../jquery.js"></script>
+
+<script>
+    var upload=new UploadFileIE10ToServer();
+    upload.dragFile();
+    selectFile();
+
+
+    function selectFile(){
+        //选择文件
+        $("#upload").click(function(){
+            $('.progress').css("width","0px");
+
+            $("#selectFile").click();
+
+        })
+        //选择好文件自动 触发 upload事件
+        $('#selectFile').change(function() {
+            if(upload.isIE()&&upload.isIE()<10){
+                $('.uploadContext').append('<iframe id="uploadTrg" src="" name="uploadTrg" height="0" width="0" frameborder="0" scrolling="yes"></iframe>');
+                $('#ajaxUpload')[0].submit();
+                $("iframe")[0].onload = function(){
+                    //后台返回数据
+                    $('.progress').css({width: "93%"});
+                };
+            }else{
+                var form = $('#ajaxUpload')[0];
+                var data = new FormData(form);
+                upload.uploadToServer(data);
+            }
+
+        })
+    }
+
+
+    function UploadFileIE10ToServer(){
+        var _this=this;
+        this.uploadToServer=function(data){
+            $.ajax({
+                url: "#",
+                method: "Post",
+                processData: false,
+                contentType: false,
+                data: data,
+                xhr: function () {//progres show
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+
+                            $('.progress').css({
+                                width: percentComplete * 93 + '%'
+                            });
+                            if (percentComplete === 1) {
+                            }
+                        }
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            console.log(percentComplete);
+                            $('.progress').css({
+                                width: percentComplete * 93 + '%'
+                            });
+                        }
+                    }, false);
+                    return xhr;
+                },
+                success: function(data){
+                    // console.log(data);
+
+                },
+                error:function(data){
+
+                }
+            })
+        }
+        this.dragFile=function(){
+            $('.uploadContext').on(
+                    'dragover',
+                    function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+            )
+            $('.uploadContext').on(
+                    'dragenter',
+                    function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+            )
+
+            $('.uploadContext').on(
+                    'drop',
+                    function(e){
+                        if(e.originalEvent.dataTransfer){
+                            if(e.originalEvent.dataTransfer.files.length) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $('.progress').css("width","0px");
+                                var files=e.originalEvent.dataTransfer.files;
+                                var data = new FormData();
+                                data.append('file', files[0]);
+                                _this.uploadToServer(data);
+                            }
+                        }
+                    }
+            );
+
+        }
+        this.isIE=function() {
+            var browser = navigator.userAgent.toLowerCase();
+            return (browser.indexOf('msie') != -1) ? parseInt(browser.split('msie')[1]) : false;
+        }
+    }
+
+</script>
+</body>
+</html>
