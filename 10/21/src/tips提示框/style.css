@@ -1,0 +1,42 @@
+.switch-btn {
+  margin-left: 74px;
+  margin-top: 23px;
+  position: relative;
+  width: 70px;
+  text-align: center;
+}
+.switch-btn .tips-box {
+  position: relative;
+}
+.switch-btn .tips-box .tips-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid #000;
+  opacity: 0.8;
+  position: absolute;
+  top: -6px;
+  left: 30px;
+}
+.switch-btn .tips-box .tips-inner {
+  padding: 5px 8px 4px 8px;
+  background-color: #000;
+  color: #fff;
+  width: 80px;
+  text-align: center;
+  border-radius: 3px;
+  opacity: 0.8;
+  position: absolute;
+  z-index: 99;
+  left: -13px;
+}
+.switch-btn .tips-box .tips-inner li {
+  padding: 4px 0;
+  cursor: pointer;
+  font-size: 13px;
+  color: #ddd;
+}
+.switch-btn .tips-box .tips-inner li:hover {
+  background: #111;
+}
