@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery.js"></script>
+    <style>
+        /*   ********* { background-color: rgba(255,0,0,.2); }
+           * * { background-color: rgba(0,255,0,.2); }
+           * * * { background-color: rgba(0,0,255,.2); }
+           * * * * { background-color: rgba(255,0,255,.2); }
+           * * * * * { background-color: rgba(0,255,255,.2); }
+           * * * * * * { background-color: rgba(255,255,0,.2); }*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .banner {
+            position: relative;
+        }
+
+        .banner .contain {
+            position: inherit;
+        }
+
+        .contain img {
+            position: absolute;
+            width: 100%;
+            display: inline-block;
+
+        }
+
+        .on {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <div class="contain">
+        <img class="on" src="header-bg1.jpg">
+        <img class="on" src="header-bg3.jpg">
+        <img class="on" src="header-bg4.jpg">
+    </div>
+</div>
+<script>
+    $(function () {
+        loopBanner(0);
+    })
+    function loopBanner(index) {
+        var list = $("div[class='contain']>img");
+        var total = list.length;
+        if (!total) return false;
+        if (index >= total) index = 0;
+        var next = index + 1;
+        if (next > total - 1) next = 0;
+        $(list[index]).show();
+        $(list[next]).show();
+        $(list[next]).animate({opacity: '0'}, 500);
+        $(list[next]).animate({opacity: '1'}, 4000);
+        $(list[index]).animate({opacity: '0'}, 6000, function () {
+                    $(list[index]).hide();
+                    $(list[next]).hide();
+                    loopBanner(index + 1)
+                }
+        );
+
+    }
+
+
+</script>
+
+</body>
+</html>

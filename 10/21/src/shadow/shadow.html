@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <title>shadow</title>
+
+</head>
+<body>
+<style>
+    html,body{
+        height: 100%;
+        font-size: 1.5625vw;
+    }
+    .screen1 {
+        height: 100%;
+        background:content-box;
+
+    }
+    .screen2 {
+        background:burlywood;
+        height: 100%;
+
+    }
+    .screen3 {
+        background: blueviolet;
+        height: 100%;
+
+    }
+
+    #p_shadow{
+        position: fixed;
+        width:100%;
+        top: 0;
+        height:100%;
+        z-index: 100;
+        background: rgba(0,0,0,0.6);
+        text-align: center;
+        display: none;
+    }
+    #p_shadow .p_line{
+        width: 90%;
+        height: 30px;
+        text-align: left;
+        border-bottom: 1px solid silver;
+        margin: auto;
+
+    }
+    #p_shadow .p_line img{
+        border: 2px solid snow;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #b1c4d0;
+        z-index: 10001;
+        margin-left: 27.5%;
+        margin-top: -45px;
+        position: fixed;
+
+    }
+
+    #p_shadow .p_line>div{
+        width: 20%;
+        text-align: center;
+        padding: 1px;
+        font-size: 1vw;
+        height: 28px;
+        line-height: 30px;
+        border-bottom: 1px solid #ff0000;
+
+
+    }
+
+    #p_shadow .content{
+        position: absolute;
+        top:0;
+        left:0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 30%;
+        height: 50%;
+        border: 1px solid #00bbee;
+        background-color: #ffffff;
+        min-height: 200px;;
+        opacity: 0.9;
+        text-align: center;
+    }
+
+    #p_shadow .contenter{
+        margin-top: 10%;
+
+    }
+    #p_shadow .shadow_footer{
+        margin-top: 40%;
+    }
+    .button{
+        background:#00bbee none repeat scroll 0 0;
+        color: #ffffff;
+        display: block;
+        border-radius: 2px;
+        height: 28px;
+        line-height: 28px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-top: 20px;
+        width: 40%;
+    }
+
+</style>
+<div class="screen1">
+    <a   model="p_shadow" class="button" href="javascript:void(0)">弹出</a>
+
+</div>
+
+<div class="screen2"></div>
+<div class="screen3"></div>
+<div id="p_shadow">
+    <div class="content">
+        <div class="p_line">
+            <div>标题</div>
+            <img id="p_closed" src="./close.png">
+        </div>
+
+        <div class="contenter">
+        您确定要删除吗?
+        </div>
+
+        <div class="p_line"></div>
+        <a href="#" class="button">确定</a>
+    </div>
+</div>
+
+
+
+
+</body>
+<script src="../jquery.js"></script>
+<script>
+    $(function(){
+        popModel();
+        function popModel(){
+            var moderName="#"+$('[model]').attr("model");
+            $('[model]').click(function(){
+                $(moderName).fadeIn()
+            })
+            $("#p_closed,"+moderName).click(function(event){
+                event.stopPropagation();
+                $(moderName).fadeOut();
+                /* $('form')[0].reset();*/
+            }).children().click(function (event) {//阻止子类冒泡
+                event.stopPropagation();
+            });
+        }
+    })
+
+</script>
+</html>
