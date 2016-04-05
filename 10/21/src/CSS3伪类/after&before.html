@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <Style>
+        a {
+            display: inline-block;
+            outline: none;
+            text-decoration: none;
+            color: #000;
+            font-size: 32px;
+            padding: 5px 10px;
+            line-height: 32px;
+        }
+
+        a:hover::before,
+        a:hover::after { position: absolute;}
+        a:hover::before { content: "\5B"; color: black;  margin-left: -10px;}
+        a:hover::after { content: "\5D"; color: black;margin-right: -10px;}
+    </Style>
+</head>
+<body>
+<a href="#">test</a>
+
+</body>
+</html>
