@@ -1,0 +1,8 @@
+{
+    "name" : "braveMind.richard.com",
+    "title" : "grid",
+    "version" : "0.1.0",
+    "devDependencies": {
+        "grunt-contrib-cssmin" : "0.6.1"
+    }
+}
