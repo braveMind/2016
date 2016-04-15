@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="App">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<body>
+
+<a ui-sref="state1">stat1 </a>
+<a ui-sref="state2">State 2</a>
+<div ui-view></div>
+</body>
+
+
+<script src="../angular.min.js"></script>
+<script src="../angular-ui-route.min.js"></script>
+
+</body>
+<script>
+
+    var App = angular.module("App", [
+        "ui.router"
+    ]);
+
+    App.config(function($stateProvider, $urlRouterProvider) {
+        abstract: true,
+       $urlRouterProvider.otherwise("/state1");
+        $stateProvider
+                .state('state1', {
+                    url: "/state1",
+                    templateUrl: "./content1.html",
+                    controller:"state1Controller"
+                })
+                .state('state1.session', {
+                    url: "/list",
+                    views :{
+                        '@':{
+                           controller:"state1Controller"
+
+                        }
+                    },
+
+                })
+                .state('state1.session.list', {
+                    url: "/asdf/asdf/abc",
+
+                    views :{
+
+                        '@':{
+                            templateUrl: "./content1.html",
+                            controller: "subController"
+                            }
+
+                        }
+
+
+
+                })
+                .state('state1.session.list.test', {
+                    url: "/asdf/asdf/abc",
+
+                    views :{
+
+                        '@':{
+                            templateUrl: "./content1.list.html",
+                            controller: function($scope) {
+                                $scope.items = ["A", "List", "Of", "Items"];
+                            }
+
+                        }
+                    },
+
+
+                })
+                .state('state2', {
+                    url: "/state2",
+                    templateUrl: "./content2.list.html"
+                })
+                .state('state2.list', {
+                    url: "/list",
+                    templateUrl: "./content2.list.html",
+                    controller: function($scope) {
+                        $scope.things = ["A", "Set", "Of", "Things"];
+                    }
+                });
+    });
+
+
+
+    App.controller('state1Controller', ['$scope',function ($scope) {
+        $scope.data=[1,2,3,4]
+    }]);
+    App.controller('subController', ['$scope',function ($scope) {
+            console.log(data);
+
+
+    }]);
+
+
+
+</script>
+</html>
